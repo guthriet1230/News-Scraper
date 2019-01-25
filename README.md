@@ -11,5 +11,5 @@ Technology Used
 - HTML/CSS/Javascript
 - Express.js: Server & Routing
 - Mongo/Mongoose: Database
-- Axios: Web Scraping
-- Cheerio: Web Scraping
+- Axios: Web Scraping (AJAX Requset)
+- Cheerio: Web Scraping (Load DOM)
