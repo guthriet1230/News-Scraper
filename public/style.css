@@ -1,0 +1,110 @@
+/**********************************/
+ /** GLOBAL STYLES  **/
+/**********************************/
+
+body{
+    background-image: url('images/NewsScraper_Background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color:rgba(0, 0, 0, 0.9);
+    font-family: 'Montserrat', sans-serif;
+    color:white;
+}
+
+#body-layer{
+    /* background-color: rgba(80, 80, 80, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    size: inherit; */
+}
+
+/**********************************/
+ /** NAVIGATION  **/
+/**********************************/
+
+nav{
+    background-color: rgb(25,156,251);
+    color:white;
+    display:flex;
+    height:60px;
+    justify-content: flex-start;
+    align-items:center;
+    font-size:14px;
+}
+nav button{
+    background-color:rgb(247,54,38);
+    height:70%;
+    color:white;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+nav h2{
+    font-size:24px;
+}
+h2, h3, h4 {
+    margin:0 1%;
+}
+
+/**********************************/
+/** Section  **/
+/**********************************/
+#title{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+h1{
+    margin:20% auto;
+    color:white;
+    font-size:70px;
+}
+
+
+/**********************************/
+/** Footer  **/
+/**********************************/
+
+footer {
+    background-color: rgb(48, 47, 41);
+    height: 70px;
+    width:100%;
+    border-top: 3px rgb(25,156,251) solid;
+    bottom: 0;
+  }
+  
+  footer img {
+    width: 40px;
+    text-align: center;
+    margin: auto;
+    position: relative;
+  }
+  
+  .footer-container {
+    text-align: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #github {
+    border-radius: 50%;
+    margin: 10px;
+  }
+  
+  #linkedin {
+    border-radius: 6%;
+    margin: 10px;
+    width: 35px;
+  }
+  
+  #gmail {
+    border-radius: 5%;
+    margin: 10px;
+    margin-bottom: 10px;
+    width: 35px;
+  }
