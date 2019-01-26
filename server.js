@@ -25,10 +25,13 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+// Connect to the Mongo DB 
+//! Comment out for deployment
+mongoose.connect("mongodb://localhost/NewsScraper", { useNewUrlParser: true });
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://<dbuser>:<dbpassword>@ds153835.mlab.com:53835/heroku_228c7103";
 
 mongoose.connect(MONGODB_URI);
 
@@ -42,15 +45,15 @@ app.get("/scrape", function(req, res) {
     const $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    $("article").each(function(i, element) {
       // Save an empty result object
       const result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).children("a").text();
+      result.title = $(this).children().text();
       result.link = "http://www.nytimes.com/" + $(this).children("a").attr("href");
       result.summary = $(this).children("p").text();
-      console.log(result.title)
+      console.log(result.link);
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
