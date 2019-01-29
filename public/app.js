@@ -1,12 +1,29 @@
-// Grab the articles as a json
-$.getJSON("/articles", function(data) {
-  // For each one
-  for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-  }
-});
+// // Grab the articles as a json
+// $.getJSON("/articles", function(data) {
+//   // For each one
+//   for (var i = 0; i < data.length; i++) {
+//     // Display the apropos information on the page
+//     $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+//   }
+// });
 
+$(document).ready(function() {
+  //Whenever someone clicks the scrape button
+  $("#scrape").on("click", function(event) {
+    // console.log("Clicked on scrape");
+    // Empty the notes from the note section
+    // Now make an ajax call for the Article
+    event.preventDefault();
+    $.get("/scrape")
+      // With that done, add the note information to the page
+      .then(function(data) {
+        // console.log(data);
+        console.log("helloworld2")
+        // $.get("/articles")
+        location.replace("/articles");
+      });
+  })
+});
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {

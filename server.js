@@ -25,17 +25,24 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Connect to the Mongo DB 
+// Connect to the Mongo DB
 //! Comment out for deployment
-// mongoose.connect("mongodb://localhost/NewsScraper", { useNewUrlParser: true });
+mongoose.connect(
+  "mongodb://localhost/NewsScraper",
+  { useNewUrlParser: true }
+);
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 // var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tyler:password1@ds153835.mlab.com:53835/heroku_228c7103";
-
-mongoose.connect(MONGODB_URI);
+//! Uncomment for deployment
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tyler:password1@ds153835.mlab.com:53835/heroku_228c7103";
+// mongoose.connect(MONGODB_URI);
 
 //* Routes
+
+app.get("/", function(req, res) {
+  res.render("index");
+});
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
@@ -50,15 +57,31 @@ app.get("/scrape", function(req, res) {
       const result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).children().text();
-      result.link = "http://www.nytimes.com/" + $(this).children("a").attr("href");
-      result.summary = $(this).children("p").text();
-      console.log(result.link);
+      result.title = $(this)
+        .find("h2")
+        .text();
+      result.link =
+        "http://www.nytimes.com/" +
+        $(this)
+          .find("a")
+          .attr("href");
+      result.summary = $(this)
+        .find("p")
+        .text();
+      result.summary += $(this)
+        .find("li")
+        .text();
+      // console.log(result.link);
       // Create a new Article using the `result` object built from scraping
+      if (!result.summary) {
+        result.summary = "No Summary Available";
+      }
+
       db.Article.create(result)
         .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
+          // res.redirect("articles")
+          // res.render("/articles")'
+          res.json(dbArticle);
         })
         .catch(function(err) {
           // If an error occurred, log it
@@ -67,17 +90,21 @@ app.get("/scrape", function(req, res) {
     });
 
     // Send a message to the client
-    res.send("Scrape Complete");
+    // res.redirect("articles");
   });
+  //  res.redirect("articles");
+  // res.render("/articles");
 });
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
+  console.log("helloworld");
   // Grab every document in the Articles collection
   db.Article.find({})
     .then(function(dbArticle) {
+      console.log(dbArticle);
       // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
+      res.render("articles", { article: dbArticle });
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
@@ -109,7 +136,11 @@ app.post("/articles/:id", function(req, res) {
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      return db.Article.findOneAndUpdate(
+        { _id: req.params.id },
+        { note: dbNote._id },
+        { new: true }
+      );
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client

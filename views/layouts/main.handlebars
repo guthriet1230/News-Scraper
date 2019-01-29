@@ -18,7 +18,7 @@
         <button id="scrape">SCRAPE NEWS ARTICLES!</button>
     </nav>
 
-    {{{Body}}}
+    {{{body}}}
 
     <footer>
         <div class="footer-container">
@@ -29,7 +29,23 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="app.js"></script>
+    <script src="/app.js"></script>
+{{!-- <script>
+    console.log("helloworld")
+$(document).on("click", "#scrape", function() {
+    console.log("Clicked on scrape");
+    // Empty the notes from the note section
+    // Now make an ajax call for the Article
+    $.get("/scrape")
+      // With that done, add the note information to the page
+      .then(function(data) {
+        console.log(data);
+        location.reload();
+      });
+  })
+
+</script> --}}
+
 </body>
 
 </html>
