@@ -64,6 +64,66 @@ h1{
     font-size:70px;
 }
 
+#article-wrapper{
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.card{
+  width:36%;
+  background-color:white;
+  color:black;
+  font-size:15px;
+  font-weight:bold;
+  margin:2.5% 5%;
+  padding:2%;
+  border-radius:10px;
+}
+
+#card-highlight{
+  color:rgb(25,156,251);
+  font-weight: 900;
+  font-size:20px;
+  margin-left:0;
+  display:inline;
+  font-family: 'Roboto', sans-serif;
+}
+
+#button-div{
+  display:flex;
+  justify-content: space-evenly;
+  align-content: center;
+  padding:0 10%;
+}
+.card button{
+  background-color:rgb(25,156,251);
+  color:white;
+  border-radius:7.5px;
+  height:32.5px;
+  font-size:15px;
+  margin-top:20px;
+  /* flex-grow:.5; */
+}
+
+/**********************************/
+/** Notes  **/
+/**********************************/
+
+#notes{
+display:flex;
+margin-top:20px;
+}
+
+form{
+display:flex;
+flex-direction:column;
+width:100%;
+}
+form button{
+  width:100px;
+  justify-content: right;
+}
+
 
 /**********************************/
 /** Footer  **/
@@ -107,4 +167,20 @@ footer {
     margin: 10px;
     margin-bottom: 10px;
     width: 35px;
+  }
+
+  @media only screen and (min-width: 359px) and (max-width: 850px) {
+    h1{
+      font-size:50px;
+      text-align:center;
+    }
+    
+    #article-wrapper{
+      display:block;
+    }
+    .card{
+      width:80%;
+      margin:2.5% 5%;
+      padding:2% 5%;
+    }
   }
