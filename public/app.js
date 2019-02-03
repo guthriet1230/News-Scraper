@@ -31,7 +31,7 @@ $(document).on("click", ".note", function() {
   // $("#notes").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
-
+// console.log("This is thisId" + thisId)
   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
@@ -41,33 +41,17 @@ $(document).on("click", ".note", function() {
     .then(function(data) {
       console.log(data);
       // The title of the article
-      $("#notes").append("<h2 class='note-header'>" + data.title + "<br> Note </h2>");
-
+      $("#notes").append("<h6 class='note-header'>" + data.title + "<br> Note </h6>");
 
       let newForm = $("<form>")
-      
-
-      newForm.append("<textarea class='form-control' id='note-text'></textarea>")
-      newForm.append("<button data-id='"+data._id+"' id='save-note-button'>Save Note</button>");
+      newForm.append("<label>Title</label>");
+      newForm.append("<textarea class='form-control' id='note-title'></textarea>")
+      newForm.append("<label>Body</label>");
+      newForm.append("<textarea class='form-control' id='note-body'></textarea>")
+      newForm.append("<button data-id='"+ data._id +"' id='savenote'>Save Note</button>");
     
       $("#notes").append(newForm);
       // $("#notes").append("<hr>")
-
-
-
-
-
-
-
-
-
-
-      // // An input to enter a new title
-      // $("#notes").append("<input id='titleinput' name='title' >");
-      // // A textarea to add a new note body
-      // $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-      // // A button to submit a new note, with the id of the article saved to it
-      // $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
       // If there's a note in the article
       if (data.note) {
@@ -80,19 +64,21 @@ $(document).on("click", ".note", function() {
 });
 
 // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+$(document).on("click", "#savenote", function(event) {
   // Grab the id associated with the article from the submit button
-  var thisId = $(this).attr("data-id");
+  // event.preventDefault();
 
+  var thisId = $(this).attr("data-id");
+ 
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
     url: "/articles/" + thisId,
     data: {
       // Value taken from title input
-      title: $("#titleinput").val(),
+      title: $("#note-title").val(),
       // Value taken from note textarea
-      body: $("#bodyinput").val()
+      body: $("#note-body").val()
     }
   })
     // With that done

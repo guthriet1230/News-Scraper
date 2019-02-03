@@ -64,19 +64,36 @@ h1{
     font-size:70px;
 }
 
+h5{
+  font-size:45px;
+  text-align:center;
+  width:80%;
+  height:55px;
+  border-radius:10px;
+  margin:0 10%;
+  padding:1%;
+  background-color: rgb(25,156,251);
+  text-decoration: underline;
+}
+hr{
+  width:80%;
+  border:1px white solid;
+  margin-top:2.5%;
+}
+
 #article-wrapper{
   display:flex;
   flex-wrap: wrap;
 }
 
 .card{
-  width:36%;
+  width:70%;
   background-color:white;
   color:black;
   font-size:15px;
   font-weight:bold;
-  margin:2.5% 5%;
-  padding:2%;
+  margin:2.5% 10%;
+  padding:2% 5%;
   border-radius:10px;
 }
 
@@ -134,6 +151,7 @@ footer {
     height: 70px;
     width:100%;
     border-top: 3px rgb(25,156,251) solid;
+    /* position:absolute; */
     bottom: 0;
   }
   
@@ -182,5 +200,14 @@ footer {
       width:80%;
       margin:2.5% 5%;
       padding:2% 5%;
+    }
+
+    h5{
+      width:90%;
+      margin:0 5%;
+    
+    }
+    hr{
+      width:90%;
     }
   }

@@ -98,11 +98,12 @@ app.get("/scrape", function(req, res) {
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
-  console.log("helloworld");
+  // console.log("helloworld");
   // Grab every document in the Articles collection
-  db.Article.find({})
+  db.Article.find({}).populate("note")
     .then(function(dbArticle) {
       console.log(dbArticle);
+      console.log(dbArticle[0].note)
       // If we were able to successfully find Articles, send them back to the client
       res.render("articles", { article: dbArticle });
     })
@@ -138,7 +139,8 @@ app.post("/articles/:id", function(req, res) {
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
       return db.Article.findOneAndUpdate(
         { _id: req.params.id },
-        { note: dbNote._id },
+        //push the value to the array (needed to push to the array), this allows for multiple notes to be included in the array
+        { $push: {note: dbNote._id} },
         { new: true }
       );
     })

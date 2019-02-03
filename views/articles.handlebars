@@ -4,14 +4,25 @@
 
 <section id="article-wrapper">
 
+<h5>The News</h5>
+<hr>
   {{#each article}}
   <div class="card">
     <p><span id="card-highlight">TITLE:</span> <br>{{this.title}}</p><br>
     <p><span id="card-highlight">SUMMARY:</span> <br>{{this.summary}}</p>
 
+    {{#each this.note}}
+      <div id="notes-included"> 
+    
+        <p><span id="card-highlight">NOTE:</span></p>
+        <p>Title: <br>{{this.title}}</p>
+        <p>Body:<br>{{this.body}}</p>
+      </div>
+    {{/each}}
+
     <div id="button-div">
       <button href="{{this.link}}">Go to Article</button>
-      <button class="note">Write a Note</button>
+      <button class="note" data-id="{{this._id}}">Write a Note</button>
       </div>
       <div id="notes"></div>
     </div>
