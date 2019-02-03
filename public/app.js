@@ -1,12 +1,3 @@
-// // Grab the articles as a json
-// $.getJSON("/articles", function(data) {
-//   // For each one
-//   for (var i = 0; i < data.length; i++) {
-//     // Display the apropos information on the page
-//     $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-//   }
-// });
-
 $(document).ready(function() {
   //Whenever someone clicks the scrape button
   $("#scrape").on("click", function(event) {
@@ -17,22 +8,19 @@ $(document).ready(function() {
     $.get("/scrape")
       // With that done, add the note information to the page
       .then(function(data) {
-        // console.log(data);
-        // console.log("helloworld2")
-        // console.log(note.link)
-        // $.get("/articles")
         location.replace("/articles");
       });
   })
 });
 
-// Whenever someone clicks a p tag
+//* /////////////////////////////////////////////////////////////
+//* When you click the "Write Note" button
+//* /////////////////////////////////////////////////////////////
+
 $(document).on("click", ".note", function() {
-  // Empty the notes from the note section
-  // $("#notes").empty();
-  // Save the id from the p tag
+
   var thisId = $(this).attr("data-id");
-// console.log("This is thisId" + thisId)
+
   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
@@ -40,14 +28,15 @@ $(document).on("click", ".note", function() {
   })
     // With that done, add the note information to the page
     .then(function(data) {
-      console.log(data);
+      // console.log(data);
+      // console.log(data.link)
       // The title of the article
-      $("#notes").append("<h6 class='note-header'>" + data.title + "<br> Note </h6>");
+      $("#notes").append("<h6 class='note-header'><span id='bold'>" + data.title + "</span> </h6>");
 
       let newForm = $("<form>")
       newForm.append("<label>Title</label>");
       newForm.append("<textarea class='form-control' id='note-title'></textarea>")
-      newForm.append("<label>Body</label>");
+      newForm.append("<label>Note</label>");
       newForm.append("<textarea class='form-control' id='note-body'></textarea>")
       newForm.append("<button data-id='"+ data._id +"' id='savenote'>Save Note</button>");
     
@@ -64,7 +53,11 @@ $(document).on("click", ".note", function() {
     });
 });
 
-// When you click the savenote button
+
+//* /////////////////////////////////////////////////////////////
+//* When you click the savenote button
+//* /////////////////////////////////////////////////////////////
+
 $(document).on("click", "#savenote", function(event) {
   // Grab the id associated with the article from the submit button
   // event.preventDefault();
@@ -94,3 +87,26 @@ $(document).on("click", "#savenote", function(event) {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+
+
+
+//* /////////////////////////////////////////////////////////////
+//* Redirecting the user when the click on "Go to Article" button
+//* /////////////////////////////////////////////////////////////
+
+$(document).on("click", ".link-button", function() {
+    console.log("clicked");
+    var thisId = $(this).attr("data-id");
+    console.log(thisId)
+    $.ajax({
+      method: "GET",
+      url: "/articles/" + thisId
+    })
+      // With that done, add the note information to the page
+      .then(function(data) {
+        console.log(data)
+        location.replace(data.link);
+
+  });
+
+  });

@@ -27,16 +27,19 @@ app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
 //! Comment out for deployment
-mongoose.connect(
-  "mongodb://localhost/NewsScraper",
-  { useNewUrlParser: true }
-);
+// mongoose.connect(
+//   "mongodb://localhost/NewsScraper",
+//   { useNewUrlParser: true }
+// );
+//!
+
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 // var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 //! Uncomment for deployment
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tyler:password1@ds153835.mlab.com:53835/heroku_228c7103";
-// mongoose.connect(MONGODB_URI);
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tyler:password1@ds153835.mlab.com:53835/heroku_228c7103";
+mongoose.connect(MONGODB_URI);
+//!
 
 //* Routes
 
@@ -87,12 +90,7 @@ app.get("/scrape", function(req, res) {
           console.log(err);
         });
     });
-
-    // Send a message to the client
-    // res.redirect("articles");
   });
-  //  res.redirect("articles");
-  // res.render("/articles");
 });
 
 // Route for getting all Articles from the db
@@ -101,8 +99,8 @@ app.get("/articles", function(req, res) {
   // Grab every document in the Articles collection
   db.Article.find({}).populate("note")
     .then(function(dbArticle) {
-      console.log(dbArticle);
-      console.log(dbArticle[0].note)
+      // console.log(dbArticle);
+      // console.log(dbArticle[0].note)
       // If we were able to successfully find Articles, send them back to the client
       res.render("articles", { article: dbArticle });
     })
