@@ -18,7 +18,8 @@ $(document).ready(function() {
       // With that done, add the note information to the page
       .then(function(data) {
         // console.log(data);
-        console.log("helloworld2")
+        // console.log("helloworld2")
+        // console.log(note.link)
         // $.get("/articles")
         location.replace("/articles");
       });
@@ -59,7 +60,7 @@ $(document).on("click", ".note", function() {
         $("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
-      }
+      } 
     });
 });
 

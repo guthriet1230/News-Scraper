@@ -79,8 +79,7 @@ app.get("/scrape", function(req, res) {
 
       db.Article.create(result)
         .then(function(dbArticle) {
-          // res.redirect("articles")
-          // res.render("/articles")'
+         
           res.json(dbArticle);
         })
         .catch(function(err) {

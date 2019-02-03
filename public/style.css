@@ -22,6 +22,11 @@ body{
     size: inherit; */
 }
 
+#bold{
+  font-weight:900;
+  font-family: 'Roboto', sans-serif;
+}
+
 /**********************************/
  /** NAVIGATION  **/
 /**********************************/
