@@ -33,9 +33,6 @@ app.set("view engine", "handlebars");
 // );
 //!
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
 //! Uncomment for deployment
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tyler:password1@ds153835.mlab.com:53835/heroku_228c7103";
 mongoose.connect(MONGODB_URI);
@@ -81,8 +78,10 @@ app.get("/scrape", function(req, res) {
       }
 
       db.Article.create(result)
+ 
         .then(function(dbArticle) {
-         
+          console.log("result" + result);
+          console.log("dbArticle" + dbArticle);
           res.json(dbArticle);
         })
         .catch(function(err) {
