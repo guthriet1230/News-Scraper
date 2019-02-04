@@ -31,7 +31,7 @@ $(document).on("click", ".note", function() {
       // console.log(data);
       // console.log(data.link)
       // The title of the article
-      $(".notes").append("<h6 class='note-header'><span id='bold'>" + data.title + "</span> </h6>");
+      $(thisId + "-notes").append("<h6 class='note-header'><span id='bold'>" + data.title + "</span> </h6>");
 
       let newForm = $("<form>")
       newForm.append("<label>Title</label>");

@@ -10,9 +10,9 @@
 {{!-- EACH ARTICLE --}}
   {{#each article}}
   <div class="card">
-    <p><span id="card-highlight">TITLE:</span> <br>{{this.title}}</p><br>
-    <p><span id="card-highlight">SUMMARY:</span> <br>{{this.summary}}</p><br>
-    <p><span id="card-highlight">NOTES:</span></p>
+    <p><span id="card-highlight">TITLE: </span> <br>{{this.title}}</p><br>
+    <p><span id="card-highlight">SUMMARY: </span> <br>{{this.summary}}</p><br>
+    <p><span id="card-highlight">NOTES: </span></p>
 
     {{!-- EACH NOTE --}}
     {{#each this.note}}
@@ -28,7 +28,7 @@
       <button class="link-button" data-id="{{this._id}}" href="{{this.link}}">Go to Article</button>
       <button class="note" data-id="{{this._id}}">Write a Note</button>
       </div>
-          <div class="notes"></div>
+          <div class=`{{this._id}}-notes`></div>
     </div>
 
   {{/each}}
