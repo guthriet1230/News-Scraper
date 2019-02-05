@@ -27,15 +27,15 @@ app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
 //! Comment out for deployment
-// mongoose.connect(
-//   "mongodb://localhost/NewsScraper",
-//   { useNewUrlParser: true }
-// );
+mongoose.connect(
+  "mongodb://localhost/NewsScraper",
+  { useNewUrlParser: true }
+);
 //!
 
 //! Uncomment for deployment
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tyler:password1@ds153835.mlab.com:53835/heroku_228c7103";
-mongoose.connect(MONGODB_URI);
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://tyler:password1@ds153835.mlab.com:53835/heroku_228c7103";
+// mongoose.connect(MONGODB_URI);
 //!
 
 //* Routes
