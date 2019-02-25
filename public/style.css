@@ -152,12 +152,14 @@ form button{
 /**********************************/
 
 footer {
-    background-color: rgb(48, 47, 41);
-    height: 70px;
-    width:100%;
+  background-color: rgb(48, 47, 41);
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  border-top: 3px rgb(0, 104, 168) solid;
+  bottom: 0;
     border-top: 3px rgb(25,156,251) solid;
-    /* position:absolute; */
-    bottom: 0;
+
   }
   
   footer img {
