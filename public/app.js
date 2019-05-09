@@ -1,13 +1,13 @@
-$(document).ready(function() {
+$(document).ready(function () {
   //Whenever someone clicks the scrape button
-  $("#scrape").on("click", function(event) {
+  $("#scrape").on("click", function (event) {
     // console.log("Clicked on scrape");
     // Empty the notes from the note section
     // Now make an ajax call for the Article
     event.preventDefault();
     $.get("/scrape")
       // With that done, add the note information to the page
-      .then(function(data) {
+      .then(function (data) {
         location.replace("/articles");
       });
   })
@@ -17,7 +17,7 @@ $(document).ready(function() {
 //* When you click the "Write Note" button
 //* /////////////////////////////////////////////////////////////
 
-$(document).on("click", ".note", function() {
+$(document).on("click", ".note", function () {
 
   var thisId = $(this).attr("data-id");
 
@@ -27,7 +27,7 @@ $(document).on("click", ".note", function() {
     url: "/articles/" + thisId
   })
     // With that done, add the note information to the page
-    .then(function(data) {
+    .then(function (data) {
       // console.log(data);
       // console.log(data.link)
       // The title of the article
@@ -38,8 +38,8 @@ $(document).on("click", ".note", function() {
       newForm.append("<textarea class='form-control' id='note-title'></textarea>")
       newForm.append("<label>Note</label>");
       newForm.append("<textarea class='form-control' id='note-body'></textarea>")
-      newForm.append("<button data-id='"+ data._id +"' id='savenote'>Save Note</button>");
-    
+      newForm.append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+
       $("#" + thisId + "-notes").append(newForm);
       // $("#notes").append("<hr>")
 
@@ -49,7 +49,7 @@ $(document).on("click", ".note", function() {
         $("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
-      } 
+      }
     });
 });
 
@@ -58,12 +58,12 @@ $(document).on("click", ".note", function() {
 //* When you click the savenote button
 //* /////////////////////////////////////////////////////////////
 
-$(document).on("click", "#savenote", function(event) {
+$(document).on("click", "#savenote", function (event) {
   // Grab the id associated with the article from the submit button
   // event.preventDefault();
 
   var thisId = $(this).attr("data-id");
- 
+
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
@@ -76,7 +76,7 @@ $(document).on("click", "#savenote", function(event) {
     }
   })
     // With that done
-    .then(function(data) {
+    .then(function (data) {
       // Log the response
       console.log(data);
       // Empty the notes section
@@ -94,19 +94,33 @@ $(document).on("click", "#savenote", function(event) {
 //* Redirecting the user when the click on "Go to Article" button
 //* /////////////////////////////////////////////////////////////
 
-$(document).on("click", ".link-button", function() {
-    console.log("clicked");
-    var thisId = $(this).attr("data-id");
-    console.log(thisId)
-    $.ajax({
-      method: "GET",
-      url: "/articles/" + thisId
-    })
-      // With that done, add the note information to the page
-      .then(function(data) {
-        console.log(data)
-        location.replace(data.link);
+$(document).on("click", ".link-button", function () {
+  console.log("clicked");
+  var thisId = $(this).attr("data-id");
+  console.log(thisId)
+  $.ajax({
+    method: "GET",
+    url: "/articles/" + thisId
+  })
+    // With that done, add the note information to the page
+    .then(function (data) {
+      console.log(data)
+      location.replace(data.link);
 
-  });
+    });
 
+});
+
+$(document).on("click", ".deletenote", function () {
+  // Grab the id associated with the article from the submit button
+  var thisId = $(this).attr("data-id");
+  console.log(thisId);
+  $.ajax({
+    method: "DELETE",
+    url: "/notes/" + thisId
+  }).then(function (data) {
+    $("#notes").empty();
+    displayNotes(data);
   });
+});
+
